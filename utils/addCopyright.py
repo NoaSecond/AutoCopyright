@@ -19,6 +19,15 @@ exclude_dirs = ['logs', '.git', '.github']
 exclude_files = ['.gitattributes', '.gitignore']
 
 def should_exclude(file_path):
+    """
+    Determines whether a file should be excluded based on its path.
+
+    Args:
+        file_path (str): The path of the file to check.
+
+    Returns:
+        bool: True if the file should be excluded, False otherwise.
+    """
     for excl_dir in exclude_dirs:
         if excl_dir in file_path:
             return True
@@ -28,6 +37,16 @@ def should_exclude(file_path):
     return False
 
 def add_comment_to_file(file_path, comment):
+    """
+    Adds a comment to the specified file.
+
+    Args:
+        file_path (str): The path to the file.
+        comment (str): The comment to be added.
+
+    Returns:
+        None
+    """
     with open(file_path, 'r+') as file:
         content = file.read()
         # Remove old comment if present
@@ -51,6 +70,10 @@ def add_comment_to_file(file_path, comment):
             file.truncate()
 
 def main():
+    """
+    Recursively walks through the current directory and adds a specified comment to files with specific extensions.
+    Excludes specified directories and files based on exclusion criteria.
+    """
     for root, dirs, files in os.walk('.'):
         # Exclude specified directories
         dirs[:] = [d for d in dirs if d not in exclude_dirs]
