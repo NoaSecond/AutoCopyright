@@ -1,4 +1,0 @@
-.github/workflows/addCopyright.yml
-LICENSE
-README.md
-utils/addCopyright.py

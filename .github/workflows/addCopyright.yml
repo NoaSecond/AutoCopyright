@@ -15,21 +15,9 @@ jobs:
       with:
         python-version: 3.x
 
-    - name: Save current file list
-      id: save_file_list
-      run: |
-        git ls-files > before_files.txt
-
     - name: Run script to add comment
       run: |
         python utils/addCopyright.py
-
-    - name: List affected files
-      run: |
-        git ls-files > after_files.txt
-        git diff --name-only > affected_files.txt
-        echo "Changed files:"
-        cat affected_files.txt
 
     - name: Configure Git
       run: |
@@ -42,9 +30,3 @@ jobs:
         git commit -m ":construction_worker: Add copyright to files" || echo "No changes to commit"
         git pull --rebase
         git push origin main
-
-    - name: Print affected files
-      if: success()
-      run: |
-        echo "The following files were affected by the change:"
-        cat affected_files.txt
